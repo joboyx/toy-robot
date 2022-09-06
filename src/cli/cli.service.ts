@@ -14,7 +14,7 @@ export class CliService {
     let [command, params] = input.split(' ');
     switch (command) {
       case 'PLACE':
-        let [x, y, direction] = params.split(',');
+        let [x, y, direction] = (params || '').split(',');
         this.toyRobotService.place(+x, +y, direction);
         break;
       case 'MOVE':
@@ -28,6 +28,9 @@ export class CliService {
         break;
       case 'REPORT':
         this.toyRobotService.report();
+        break;
+      case 'RESET':
+        this.toyRobotService.reset();
         break;
       default:
         this.printHelp();

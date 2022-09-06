@@ -19,40 +19,57 @@ export class ToyRobotService {
   place(x: number, y: number, direction: string) {
     console.debug(`### PLACE X[${x}], Y[${y}], DIRECTION[${direction}]`);
 
-    this.state = { x, y, direction: ToyRobotDirection.parseByName(direction) };
+    let dir = ToyRobotDirection.parseByName(direction);
+    if (this.isValidPlaceParams(x, y, dir)) {
+      this.state = { x, y, direction: dir };
+    } else {
+      console.error('Invalid PLACE parameters');
+    }
   }
 
   move() {
     console.debug('### MOVE');
 
-    if (this.canMove(this.state)) {
-      this.state = {
-        ...this.state,
-        x: this.state.x + this.state.direction.xDelta,
-        y: this.state.y + this.state.direction.yDelta,
+    if (this.isPlaced(this.state)) {
+      if (this.canMove(this.state)) {
+        this.state = {
+          ...this.state,
+          x: this.state.x + this.state.direction.xDelta,
+          y: this.state.y + this.state.direction.yDelta,
+        }
+      } else {
+        console.error('!!! Can\'t move to that direction');
       }
     } else {
-      console.warn('!!! Can\'t move to that direction');
+      console.error('!!! Toy Robot is not yet placed');
     }
   }
 
   left() {
     console.debug('### LEFT');
 
-    let degrees = (this.state.direction.degrees === 0 ? 360 : this.state.direction.degrees) - 90;
-    this.state = {
-      ...this.state,
-      direction: ToyRobotDirection.parseByDegrees(degrees),
+    if (this.isPlaced(this.state)) {
+      let degrees = (this.state.direction.degrees === 0 ? 360 : this.state.direction.degrees) - 90;
+      this.state = {
+        ...this.state,
+        direction: ToyRobotDirection.parseByDegrees(degrees),
+      }
+    } else {
+      console.error('!!! Toy Robot is not yet placed');
     }
   }
 
   right() {
     console.debug('### RIGHT');
 
-    let degrees = this.state.direction.degrees + 90;
-    this.state = {
-      ...this.state,
-      direction: ToyRobotDirection.parseByDegrees(degrees),
+    if (this.isPlaced(this.state)) {
+      let degrees = this.state.direction.degrees + 90;
+      this.state = {
+        ...this.state,
+        direction: ToyRobotDirection.parseByDegrees(degrees),
+      }
+    } else {
+      console.error('!!! Toy Robot is not yet placed');
     }
   }
 
@@ -60,7 +77,7 @@ export class ToyRobotService {
     console.debug('### REPORT');
 
     let s = ToyRobotService.state;
-    console.info(`!!! Toy Robot is at X[${s.x}], Y[${s.y}], DIRECTION[${s.direction?.name}]`)
+    console.info(`!!! Toy Robot is at X[${s.x}], Y[${s.y}], DIRECTION[${s.direction?.name || null}]`)
   }
 
   reset() {
@@ -87,5 +104,16 @@ export class ToyRobotService {
     let yNew = y + direction.yDelta;
 
     return xNew >= ToyRobotService.X_MIN && xNew <= ToyRobotService.X_MAX && yNew >= ToyRobotService.Y_MIN && yNew <= ToyRobotService.Y_MAX;
+  }
+
+  private isValidPlaceParams(x: number, y: number, direction: ToyRobotDirection): boolean {
+    return Number.isInteger(x) && Number.isInteger(y)
+      && x >= ToyRobotService.X_MIN && x <= ToyRobotService.X_MAX
+      && y >= ToyRobotService.Y_MIN && y <= ToyRobotService.Y_MAX
+      && direction != null;
+  }
+
+  private isPlaced(state: ToyRobotState): boolean {
+    return !!state.direction;
   }
 }
