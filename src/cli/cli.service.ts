@@ -1,27 +1,32 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Direction } from 'src/toy-robot/toy-robot-direction.enum';
+import { ToyRobotService } from 'src/toy-robot/toy-robot.service';
 
 @Injectable()
 export class CliService {
   readonly log = new Logger('ClieService');
 
-  constructor() {}
+  constructor(
+    private readonly toyRobotService: ToyRobotService,
+  ) { }
 
-  static handleInput(input: string) {
-    switch(input) {
+  handleInput(input: string) {
+    switch (input) {
       case 'PLACE':
-        console.info('### PLACE');
+        // TODO
+        this.toyRobotService.place(0, 0, Direction.NORTH);
         break;
       case 'MOVE':
-        console.info('### MOVE');
+        this.toyRobotService.move();
         break;
       case 'LEFT':
-        console.info('### LEFT');
+        this.toyRobotService.left();
         break;
       case 'RIGHT':
-        console.info('### RIGHT');
+        this.toyRobotService.right();
         break;
       case 'REPORT':
-        console.info('### REPORT');
+        this.toyRobotService.report();
         break;
       default:
         this.printHelp();
@@ -29,7 +34,7 @@ export class CliService {
     console.debug(`>>> [${input}]`);
   }
 
-  private static printHelp() {
+  private printHelp() {
     console.info('Commands:');
     console.info('PLACE <X>,<Y>,<DIRECTION> -- <X> and <Y> are integers that indicate a location on the tabletop');
     console.info('                          -- <DIRECTION> is a string indicating which direction the robot should face');
