@@ -11,10 +11,11 @@ export class CliService {
   ) { }
 
   handleInput(input: string) {
-    switch (input) {
+    let [command, params] = input.split(' ');
+    switch (command) {
       case 'PLACE':
-        // TODO
-        this.toyRobotService.place(0, 0, ToyRobotDirection.NORTH.name);
+        let [x, y, direction] = params.split(',');
+        this.toyRobotService.place(+x, +y, direction);
         break;
       case 'MOVE':
         this.toyRobotService.move();
