@@ -32,6 +32,7 @@ export class CliService {
       default:
         this.printHelp();
     }
+    this.printTable();
     console.debug(`>>> [${input}]`);
   }
 
@@ -51,5 +52,22 @@ export class CliService {
     console.info();
     console.info('RESET                     -- Resets the toy robot');
     console.info();
+  }
+  
+  printTable() {
+    let xMax = ToyRobotService.X_MAX;
+    let yMax = ToyRobotService.Y_MAX;
+    let state = ToyRobotService.state;
+
+    for (let i = 0; i <= xMax; i++) {
+      for (let j = 0; j <= yMax; j++) {
+        if (i == state.y && j == state.x) {
+          process.stdout.write(`${state.direction?.symbol || 'X'} `);
+        } else {
+          process.stdout.write('X ');
+        }
+      }
+      console.info();
+    }
   }
 }

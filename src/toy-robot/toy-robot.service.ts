@@ -5,12 +5,12 @@ import { ToyRobotState } from './toy-robot-state.model';
 @Injectable()
 export class ToyRobotService {
 
-  private readonly X_MIN = 0;
-  private readonly Y_MIN = 0;
-  private readonly X_MAX = 4;
-  private readonly Y_MAX = 4;
+  static readonly X_MIN = 0;
+  static readonly Y_MIN = 0;
+  static readonly X_MAX = 4;
+  static readonly Y_MAX = 4;
 
-  private static state: ToyRobotState = {
+  static state: ToyRobotState = {
     x: null,
     y: null,
     direction: null,
@@ -86,6 +86,6 @@ export class ToyRobotService {
     let xNew = x + direction.xDelta;
     let yNew = y + direction.yDelta;
 
-    return xNew >= this.X_MIN && xNew <= this.X_MAX && yNew >= this.Y_MIN && yNew <= this.Y_MAX;
+    return xNew >= ToyRobotService.X_MIN && xNew <= ToyRobotService.X_MAX && yNew >= ToyRobotService.Y_MIN && yNew <= ToyRobotService.Y_MAX;
   }
 }
