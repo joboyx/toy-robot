@@ -5,6 +5,11 @@ import { ToyRobotState } from './toy-robot-state.model';
 @Injectable()
 export class ToyRobotService {
 
+  private readonly X_MIN = 0;
+  private readonly Y_MIN = 0;
+  private readonly X_MAX = 4;
+  private readonly Y_MAX = 4;
+
   private static state: ToyRobotState = {
     x: null,
     y: null,
@@ -20,10 +25,14 @@ export class ToyRobotService {
   move() {
     console.debug('### MOVE');
 
-    this.state = {
-      ...this.state,
-      x: this.state.x + this.state.direction.xDelta,
-      y: this.state.y + this.state.direction.yDelta,
+    if (this.canMove(this.state)) {
+      this.state = {
+        ...this.state,
+        x: this.state.x + this.state.direction.xDelta,
+        y: this.state.y + this.state.direction.yDelta,
+      }
+    } else {
+      console.warn('!!! Can\'t move to that direction');
     }
   }
 
@@ -70,5 +79,13 @@ export class ToyRobotService {
 
   private set state(val: ToyRobotState) {
     ToyRobotService.state = val;
+  }
+
+  private canMove(state: ToyRobotState): boolean {
+    let { x, y, direction } = state;
+    let xNew = x + direction.xDelta;
+    let yNew = y + direction.yDelta;
+
+    return xNew >= this.X_MIN && xNew <= this.X_MAX && yNew >= this.Y_MIN && yNew <= this.Y_MAX;
   }
 }
