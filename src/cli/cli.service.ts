@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Direction } from 'src/toy-robot/toy-robot-direction.enum';
+import { ToyRobotDirection } from 'src/toy-robot/toy-robot-direction.enum';
 import { ToyRobotService } from 'src/toy-robot/toy-robot.service';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CliService {
     switch (input) {
       case 'PLACE':
         // TODO
-        this.toyRobotService.place(0, 0, Direction.NORTH);
+        this.toyRobotService.place(0, 0, ToyRobotDirection.NORTH.name);
         break;
       case 'MOVE':
         this.toyRobotService.move();
