@@ -10,6 +10,10 @@ export class CliService {
     private readonly toyRobotService: ToyRobotService,
   ) { }
 
+  /**
+   * Handler for user input from CLI/REPL
+   * @param input 
+   */
   handleInput(input: string) {
     let [command, params] = input.split(' ');
     switch (command) {
@@ -33,15 +37,18 @@ export class CliService {
         this.toyRobotService.reset();
         break;
       default:
+        console.error('Invalid command!');
         this.printHelp();
     }
     this.printTable();
     console.debug(`>>> [${input}]`);
   }
 
-  private printHelp() {
+  printHelp() {
+    console.info();
     console.info('Commands:');
     console.info('PLACE <X>,<Y>,<DIRECTION> -- <X> and <Y> are integers that indicate a location on the tabletop');
+    console.info('                          -- <X> and <Y> are coordinates in the table with 0,0 on top-right and 4,4 is at lower-right');
     console.info('                          -- <DIRECTION> is a string indicating which direction the robot should face');
     console.info('                          -- <DIRECTION> can be "NORTH", "EAST", "SOUTH", or "WEST"');
     console.info();
@@ -57,20 +64,25 @@ export class CliService {
     console.info();
   }
   
+  /**
+   * Prints the 5 x 5 table in the terminal
+   */
   printTable() {
     let xMax = ToyRobotService.X_MAX;
     let yMax = ToyRobotService.Y_MAX;
     let state = ToyRobotService.state;
 
+    console.info();
     for (let i = 0; i <= xMax; i++) {
       for (let j = 0; j <= yMax; j++) {
         if (i == state.y && j == state.x) {
-          process.stdout.write(`${state.direction?.symbol || 'X'} `);
+          process.stdout.write(`${state.direction?.symbol || '-'} `);
         } else {
-          process.stdout.write('X ');
+          process.stdout.write('- ');
         }
       }
       console.info();
     }
+    console.info();
   }
 }

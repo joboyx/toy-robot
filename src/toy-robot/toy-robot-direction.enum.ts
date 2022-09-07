@@ -6,9 +6,13 @@ export class ToyRobotDirection {
 
   private constructor(
     readonly name: string,
+    /** num of units to be moved in x axis */
     readonly xDelta: number,
+    /** num of units to be moved in y axis */
     readonly yDelta: number, 
+    /** numerical representation of the direction, with 0° facing up/NORTH */
     readonly degrees: number,
+    /** character used when printing to terminal */
     readonly symbol: string,
   ) {}
 
