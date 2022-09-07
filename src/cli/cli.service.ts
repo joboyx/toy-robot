@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ToyRobotDirection } from 'src/toy-robot/toy-robot-direction.enum';
-import { ToyRobotService } from 'src/toy-robot/toy-robot.service';
+import { ToyRobotService } from '../toy-robot/toy-robot.service';
 
 @Injectable()
 export class CliService {
@@ -63,7 +62,7 @@ export class CliService {
     console.info('RESET                     -- Resets the toy robot');
     console.info();
   }
-  
+
   /**
    * Prints the 5 x 5 table in the terminal
    */

@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { CliService } from 'src/cli/cli.service';
+import { CliService } from '../cli/cli.service';
 import { ToyRobotService } from './toy-robot.service';
 
 @Controller('toy-robot')
