@@ -1,30 +1,48 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Toy-Robot app where you can:
+- `PLACE` it in a 5 x 5 grid.
+- `MOVE` it 1 unit forward
+- rotate it `LEFT` 
+- rotate it `RIGHT`
+
+Accepts input via CLI/REPL prompt using the following commands
+```
+PLACE <X>,<Y>,<DIRECTION> -- <X> and <Y> are integers that indicate a location on the tabletop
+                          -- <X> and <Y> are coordinates in the table with 0,0 on top-right and 4,4 is at lower-right
+                          -- <DIRECTION> is a string indicating which direction the robot should face
+                          -- <DIRECTION> can be "NORTH", "EAST", "SOUTH", or "WEST"
+
+MOVE                      -- Instructs the robot to move 1 square in the direction it is facing
+
+LEFT                      -- Instructs the robot to rotate 90° anticlockwise/counterclockwise
+
+RIGHT                     -- Instructs the robot to rotate 90° clockwise
+
+REPORT                    -- Outputs the robot's current location on the tabletop and the direction it is facing
+
+RESET                     -- Resets the toy robot
+```
+
+Or via REST API using the following HTTP GET endpoints.
+
+http://localhost:3000/toy-robot/place/1/1/NORTH
+
+http://localhost:3000/toy-robot/move
+
+http://localhost:3000/toy-robot/left
+
+http://localhost:3000/toy-robot/right
+
+http://localhost:3000/toy-robot/report
+
+http://localhost:3000/toy-robot/reset
+
+NOTE:
+- yes, all of the endpoints above should be POST ideally, except `REPORT`. But for easier access we use GET.
+- since we have REST APIs, ideally we can create an Angular app that consumes these APIs so that user can interact via UI/browser instead of CLI/REPL
+
+
 
 ## Installation
 
@@ -58,16 +76,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Author
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Joboy Jordan
