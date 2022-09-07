@@ -5,6 +5,7 @@ Toy-Robot app where you can:
 - `MOVE` it 1 unit forward
 - rotate it `LEFT` 
 - rotate it `RIGHT`
+- `REPORT` it's coordinates and direction
 
 Accepts input via CLI/REPL prompt using the following commands
 ```
@@ -44,6 +45,8 @@ NOTE:
 
 
 
+## Requirements
+* node v16 (you can use `nvm` to install multiple versions of node/npm)
 ## Installation
 
 ```bash
@@ -58,9 +61,6 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
