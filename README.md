@@ -79,3 +79,6 @@ $ npm run test:cov
 ## Author
 
 Joboy Jordan
+
+## TODO
+- add angular app that consumes REST APIs, then update ToyRobotService return value for the changes
